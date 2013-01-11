@@ -1,0 +1,131 @@
+!SESSION 2012-12-31 09:07:59.118 -----------------------------------------------
+eclipse.buildId=M20120914-1800
+java.version=1.7.0_10
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86, WS=gtk, NL=en_US
+Command-line arguments:  -os linux -ws gtk -arch x86
+
+!ENTRY org.eclipse.core.jobs 4 2 2012-12-31 09:24:26.588
+!MESSAGE An internal error occurred during: "Map/Reduce location status updater".
+!STACK 0
+java.lang.NoClassDefFoundError: org/codehaus/jackson/map/JsonMappingException
+	at org.apache.hadoop.eclipse.server.HadoopServer.getJobClient(HadoopServer.java:479)
+	at org.apache.hadoop.eclipse.server.HadoopServer$LocationStatusUpdater.run(HadoopServer.java:103)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+Caused by: java.lang.ClassNotFoundException: org.codehaus.jackson.map.JsonMappingException
+	at org.eclipse.osgi.internal.loader.BundleLoader.findClassInternal(BundleLoader.java:501)
+	at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:421)
+	at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:412)
+	at org.eclipse.osgi.internal.baseadaptor.DefaultClassLoader.loadClass(DefaultClassLoader.java:107)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:356)
+	... 3 more
+!SESSION 2012-12-31 09:34:34.041 -----------------------------------------------
+eclipse.buildId=M20120914-1800
+java.version=1.7.0_10
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86, WS=gtk, NL=en_US
+Command-line arguments:  -os linux -ws gtk -arch x86
+
+!ENTRY org.eclipse.core.jobs 4 2 2012-12-31 09:35:31.446
+!MESSAGE An internal error occurred during: "Map/Reduce location status updater".
+!STACK 0
+java.lang.NoClassDefFoundError: org/codehaus/jackson/map/JsonMappingException
+	at org.apache.hadoop.eclipse.server.HadoopServer.getJobClient(HadoopServer.java:479)
+	at org.apache.hadoop.eclipse.server.HadoopServer$LocationStatusUpdater.run(HadoopServer.java:103)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+Caused by: java.lang.ClassNotFoundException: org.codehaus.jackson.map.JsonMappingException
+	at org.eclipse.osgi.internal.loader.BundleLoader.findClassInternal(BundleLoader.java:501)
+	at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:421)
+	at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:412)
+	at org.eclipse.osgi.internal.baseadaptor.DefaultClassLoader.loadClass(DefaultClassLoader.java:107)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:356)
+	... 3 more
+!SESSION 2013-01-03 21:31:18.617 -----------------------------------------------
+eclipse.buildId=M20120914-1800
+java.version=1.7.0_10
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86, WS=gtk, NL=en_US
+Command-line arguments:  -os linux -ws gtk -arch x86
+
+!ENTRY org.eclipse.jface 2 0 2013-01-03 22:20:02.816
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2013-01-03 22:20:02.816
+!MESSAGE A conflict occurred for CTRL+D:
+Binding(CTRL+D,
+	ParameterizedCommand(Command(org.eclipse.debug.ui.commands.eof,EOF,
+		Send end of file,
+		Category(org.eclipse.debug.ui.category.run,Run/Debug,Run/Debug command category,true),
+		org.eclipse.ui.internal.MakeHandlersGo@1d559cb,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.debug.ui.console,,,system)
+Binding(CTRL+D,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.delete.line,Delete Line,
+		Delete a line of text,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		org.eclipse.ui.internal.MakeHandlersGo@1fa2aa6,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.textEditorScope,,,system)
+!SESSION 2013-01-07 22:20:37.516 -----------------------------------------------
+eclipse.buildId=M20120914-1800
+java.version=1.7.0_10
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86, WS=gtk, NL=en_US
+Command-line arguments:  -os linux -ws gtk -arch x86
+
+!ENTRY org.eclipse.core.jobs 4 2 2013-01-07 22:21:53.530
+!MESSAGE An internal error occurred during: "Connecting to DFS hadoop".
+!STACK 0
+java.lang.NoClassDefFoundError: org/apache/commons/configuration/Configuration
+	at org.apache.hadoop.metrics2.lib.DefaultMetricsSystem.<init>(DefaultMetricsSystem.java:37)
+	at org.apache.hadoop.metrics2.lib.DefaultMetricsSystem.<clinit>(DefaultMetricsSystem.java:34)
+	at org.apache.hadoop.security.UgiInstrumentation.create(UgiInstrumentation.java:51)
+	at org.apache.hadoop.security.UserGroupInformation.initialize(UserGroupInformation.java:216)
+	at org.apache.hadoop.security.UserGroupInformation.ensureInitialized(UserGroupInformation.java:184)
+	at org.apache.hadoop.security.UserGroupInformation.isSecurityEnabled(UserGroupInformation.java:236)
+	at org.apache.hadoop.security.UserGroupInformation.getLoginUser(UserGroupInformation.java:466)
+	at org.apache.hadoop.security.UserGroupInformation.getCurrentUser(UserGroupInformation.java:452)
+	at org.apache.hadoop.fs.FileSystem$Cache$Key.<init>(FileSystem.java:1494)
+	at org.apache.hadoop.fs.FileSystem$Cache.get(FileSystem.java:1395)
+	at org.apache.hadoop.fs.FileSystem.get(FileSystem.java:254)
+	at org.apache.hadoop.fs.FileSystem.get(FileSystem.java:123)
+	at org.apache.hadoop.eclipse.server.HadoopServer.getDFS(HadoopServer.java:469)
+	at org.apache.hadoop.eclipse.dfs.DFSPath.getDFS(DFSPath.java:146)
+	at org.apache.hadoop.eclipse.dfs.DFSFolder.loadDFSFolderChildren(DFSFolder.java:61)
+	at org.apache.hadoop.eclipse.dfs.DFSFolder$1.run(DFSFolder.java:178)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+Caused by: java.lang.ClassNotFoundException: org.apache.commons.configuration.Configuration
+	at org.eclipse.osgi.internal.loader.BundleLoader.findClassInternal(BundleLoader.java:501)
+	at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:421)
+	at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:412)
+	at org.eclipse.osgi.internal.baseadaptor.DefaultClassLoader.loadClass(DefaultClassLoader.java:107)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:356)
+	... 17 more
+!SESSION 2013-01-09 01:16:23.650 -----------------------------------------------
+eclipse.buildId=M20120914-1800
+java.version=1.7.0_10
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86, WS=gtk, NL=en_US
+Command-line arguments:  -os linux -ws gtk -arch x86
+
+!ENTRY org.eclipse.jface 2 0 2013-01-09 21:41:24.324
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2013-01-09 21:41:24.324
+!MESSAGE A conflict occurred for CTRL+D:
+Binding(CTRL+D,
+	ParameterizedCommand(Command(org.eclipse.debug.ui.commands.eof,EOF,
+		Send end of file,
+		Category(org.eclipse.debug.ui.category.run,Run/Debug,Run/Debug command category,true),
+		org.eclipse.ui.internal.MakeHandlersGo@90207c,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.debug.ui.console,,,system)
+Binding(CTRL+D,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.delete.line,Delete Line,
+		Delete a line of text,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		org.eclipse.ui.internal.MakeHandlersGo@44c4c5,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.textEditorScope,,,system)
