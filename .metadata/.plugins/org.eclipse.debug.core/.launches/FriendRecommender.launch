@@ -7,7 +7,7 @@
 <listEntry value="1"/>
 </listAttribute>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="SuggestFriends"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="/home/cs246/Desktop/dataset1-1 /home/cs246/Desktop/output1-1 /home/cs246/Desktop/output1-1-2"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="/home/cs246/Desktop/toy_dataset1-1 /home/cs246/Desktop/toy_output1-1 /home/cs246/Desktop/toy_output1-1-2"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="FriendRecommender"/>
 <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Xmx500m"/>
 </launchConfiguration>

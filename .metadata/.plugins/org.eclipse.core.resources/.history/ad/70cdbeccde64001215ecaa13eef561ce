@@ -76,10 +76,9 @@ public class SuggestFriends {
          }
    
         public static class Reduce2 extends Reducer<IntWritable, Text, Text, Text> {
-          private Text k = new Text();
           private Text v = new Text();
 
-          public void reduce(IntWritable key, Iterable<Text> values, Context context) 
+          public void reduce(Text key, Iterable<Text> values, Context context) 
             throws IOException, InterruptedException {
             ArrayList<String> vals = new ArrayList<String>();
             
@@ -120,8 +119,7 @@ public class SuggestFriends {
             //System.out.println("friends: " + friends);
             String f = friends.toString();
             v.set(f.substring(1, f.length()-1)); // remove brackets before printing
-            k.set(key.toString());
-            context.write(k, v);
+            context.write(key, v);
               
           }
         }
@@ -148,10 +146,6 @@ public class SuggestFriends {
     //second job
     Job job2 = new Job(conf, "SuggestFriends");
     job2.setJarByClass(SuggestFriends.class);
-    
-    job2.setMapOutputKeyClass(IntWritable.class);
-    job2.setMapOutputValueClass(Text.class);
-    
     job2.setOutputKeyClass(Text.class);
     job2.setOutputValueClass(Text.class);
         
