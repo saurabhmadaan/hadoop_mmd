@@ -1,0 +1,154 @@
+import java.io.IOException;
+import java.util.*;
+
+import org.apache.commons.lang.StringUtils;
+        
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.conf.*;
+import org.apache.hadoop.io.*;
+import org.apache.hadoop.mapreduce.*;
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.input.KeyValueTextInputFormat;
+import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
+        
+public class SuggestFriends {
+
+    public static class Map1 extends Mapper<Text, Text, Text, IntWritable> {
+      private final static IntWritable one = new IntWritable(1);
+      private final static IntWritable two = new IntWritable(2);
+      private Text k = new Text();
+      private Text k1 = new Text();
+
+          
+      public void map(Text key, Text value, Context context) throws IOException, InterruptedException {
+        	String[] list = StringUtils.split(value.toString(),",");
+          for(int i=0; i<list.length; i++){
+          	k.set(key + "-" + list[i]);
+          	context.write(k, two); // existing friends
+          	for (int j=i+1; j<list.length; j++){
+            	k1.set(list[i] + "-" + list[j]);
+            	context.write(k1, one); // 1 common friend
+            	System.out.println("Mapper key: " + k1 + " value: " + one);
+          	}
+       }
+      }
+    }
+ 
+      public static class Reduce1 extends Reducer<Text, IntWritable, Text, IntWritable> {
+
+        public void reduce(Text key, Iterable<IntWritable> values, Context context) 
+          throws IOException, InterruptedException {
+            int sum = 0;
+            for (IntWritable val : values) {
+            	System.out.println(" reducer key: " + key + " value: " + val);
+                if(val.get()==2){
+                	sum=0;
+                	break;
+                }
+                else{
+                	sum += val.get();
+                }                
+            }
+            //System.out.println("key: " + key);
+            //System.out.println("sum: " + sum);
+            if (sum>0){
+            context.write(key, new IntWritable(sum));
+            }
+        }
+      }
+
+      public static class Map2 extends Mapper<Text, Text, Text, Text> {
+        private Text k = new Text();
+        private Text v = new Text();
+
+            
+        public void map(Text key, Text value, Context context) throws IOException, InterruptedException {
+          	String[] list = StringUtils.split(key.toString(),"-");
+            k.set(list[0]);
+            v.set(list[1] + ":" + value.toString());
+            context.write(k,v); // 1 common friend
+            System.out.println("Mapper2 key: " + k + " value: " + v);
+       	}
+         }
+   
+        public static class Reduce2 extends Reducer<Text, Text, Text, Text> {
+          private Text v = new Text();
+
+          public void reduce(Text key, Iterable<Text> values, Context context) 
+            throws IOException, InterruptedException {
+            ArrayList<String> vals = new ArrayList<String>();
+            
+            Comparator<String> CustComp = new Comparator<String>() {
+							@Override
+							public int compare(String o1, String o2) {
+			        	String[] w1 = StringUtils.split(o1.toString(),":");
+			        	String[] w2 = StringUtils.split(o2.toString(),":");
+			        	System.out.println("comparing " + w1[1] + " and "+ w2[1]);
+			        	System.out.println("result: "+w1[1].compareTo(w2[1]));
+								return w1[0].compareTo(w2[0]);
+							}
+            };
+            
+            for (Text val : values) {
+            	vals.add(val.toString());
+            }
+
+            Collections.sort(vals, Collections.reverseOrder(CustComp));
+            
+            ArrayList<String> friends = new ArrayList<String>();
+            int i=0;
+            for (String s : vals){
+            	while(i<10){
+               	friends.add(StringUtils.split(s.toString(),":")[1]);
+            	}
+            }
+
+            v.set(friends.toString());
+
+              System.out.println("reduce2 key: " + key);
+              System.out.println("reduce2 value: " + vals.toString());
+              context.write(key, v);
+              
+          }
+        }
+        
+ public static void main(String[] args) throws Exception {
+    Configuration conf = new Configuration();
+        
+    Job job = new Job(conf, "SuggestFriends");
+    job.setJarByClass(SuggestFriends.class);
+    job.setOutputKeyClass(Text.class);
+    job.setOutputValueClass(IntWritable.class);
+        
+    job.setMapperClass(Map1.class);
+    job.setReducerClass(Reduce1.class);
+        
+    job.setInputFormatClass(KeyValueTextInputFormat.class);
+    job.setOutputFormatClass(TextOutputFormat.class);
+        
+    FileInputFormat.addInputPath(job, new Path(args[0]));
+    FileOutputFormat.setOutputPath(job, new Path(args[1]));
+        
+    job.waitForCompletion(true);
+    
+    //second job
+    Job job2 = new Job(conf, "SuggestFriends");
+    job2.setJarByClass(SuggestFriends.class);
+    job2.setOutputKeyClass(Text.class);
+    job2.setOutputValueClass(Text.class);
+        
+    job2.setMapperClass(Map2.class);
+    job2.setReducerClass(Reduce2.class);
+        
+    job2.setInputFormatClass(KeyValueTextInputFormat.class);
+    job2.setOutputFormatClass(TextOutputFormat.class);
+        
+    FileInputFormat.addInputPath(job2, new Path(args[1]));
+    FileOutputFormat.setOutputPath(job2, new Path(args[2]));
+        
+    job2.waitForCompletion(true);
+ }
+        
+}
