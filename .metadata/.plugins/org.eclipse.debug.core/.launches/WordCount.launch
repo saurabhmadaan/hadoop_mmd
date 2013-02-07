@@ -9,5 +9,4 @@
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="WordCount"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="/home/cs246/Desktop/dataset /home/cs246/Desktop/output"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="WordCntHadoop"/>
-<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Xmx500m"/>
 </launchConfiguration>

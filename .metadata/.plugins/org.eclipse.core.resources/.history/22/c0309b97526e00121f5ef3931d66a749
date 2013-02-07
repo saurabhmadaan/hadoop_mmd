@@ -1,0 +1,11 @@
+import java.util.ArrayList;
+
+
+public class Distances {
+	
+	public static void main(String[] args){
+		ArrayList<Double> a = new ArrayList<Double>();
+		a=[1.0,2.0];
+		System.out.println(a);
+	}
+}
